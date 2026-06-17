@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Charul ❦ Purveyor of Fine Models &amp; Apps</title>
+<meta name="description" content="ml engineer & full-stack dev. computer vision, LLMs, and apps that lowkey just work." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #EDE1C6;
+    --ink: #2B2118;
+    --burgundy: #6E1423;
+    --green: #233E2E;
+    --gold: #9A7A21;
+    --black: "UnifrakturCook", serif;
+    --didone: "Playfair Display", serif;
+    --fell: "IM Fell English", Georgia, serif;
+    --fellsc: "IM Fell English SC", Georgia, serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--fell); color: var(--ink); font-size: 19px; line-height: 1.6;
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(255,250,235,0.5), transparent 55%),
+      radial-gradient(140% 120% at 50% 100%, rgba(43,33,24,0.10), transparent 60%),
+      var(--paper);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: var(--burgundy); text-decoration: none; }
+
+  /* ---------- ornamental frame ---------- */
+  .frame {
+    width: min(960px, 92vw); margin: 1.4rem auto; position: relative;
+    border: 2px solid var(--ink);
+    box-shadow: inset 0 0 0 5px var(--paper), inset 0 0 0 7px var(--ink);
+    padding: clamp(1.4rem, 4vw, 3rem);
+  }
+  .frame::before, .frame::after,
+  .corner-l, .corner-r {
+    position: absolute; font-family: var(--didone); font-size: 1.7rem; color: var(--ink);
+    background: var(--paper); line-height: 1; padding: 0 6px;
+  }
+  .frame::before { content: "❦"; top: -3px; left: 14px; transform: translateY(-50%); }
+  .frame::after  { content: "❦"; top: -3px; right: 14px; transform: translateY(-50%); }
+  .corner-l { content: "❦"; bottom: -3px; left: 14px; transform: translateY(50%); }
+  .corner-r { bottom: -3px; right: 14px; transform: translateY(50%); }
+
+  /* ---------- dividers ---------- */
+  .rule { display: flex; align-items: center; justify-content: center; gap: 0.9rem; margin: clamp(2rem,5vw,3.2rem) 0; color: var(--ink); }
+  .rule::before, .rule::after { content: ""; height: 1px; background: var(--ink); flex: 1; max-width: 230px; }
+  .rule span { font-family: var(--didone); font-size: 1.3rem; color: var(--burgundy); }
+
+  /* ---------- masthead ---------- */
+  .mast { text-align: center; }
+  .est { font-family: var(--fellsc); letter-spacing: 0.18em; font-size: 0.78rem; text-transform: uppercase; }
+  .mast h1 {
+    font-family: var(--black); font-weight: 700;
+    font-size: clamp(3.6rem, 15vw, 8.5rem); line-height: 1; color: var(--ink);
+    margin: 0.4rem 0 0.2rem; letter-spacing: 0.01em;
+  }
+  .mast .tag {
+    font-family: var(--didone); font-style: italic; font-weight: 400;
+    font-size: clamp(1.15rem, 3vw, 1.7rem); max-width: 34ch; margin: 1rem auto 0; line-height: 1.4;
+  }
+  .mast .tag em { font-style: normal; color: var(--burgundy); font-weight: 700; }
+
+  .cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem 1.4rem; margin-top: 2rem; }
+  .cta {
+    font-family: var(--fellsc); font-size: 1rem; letter-spacing: 0.04em;
+    border: 2px solid var(--ink); padding: 0.55rem 1.2rem; background: transparent;
+    color: var(--ink); transition: background 0.2s, color 0.2s;
+  }
+  .cta:hover { background: var(--ink); color: var(--paper); }
+  .cta.lead { background: var(--burgundy); border-color: var(--burgundy); color: var(--paper); }
+  .cta.lead:hover { background: var(--ink); border-color: var(--ink); }
+  .mani { font-family: var(--didone); }
+
+  /* ---------- section headings ---------- */
+  .sec-head { text-align: center; margin-bottom: 2rem; }
+  .sec-head h2 {
+    font-family: var(--didone); font-weight: 900; font-size: clamp(2.2rem, 6vw, 3.4rem);
+    letter-spacing: -0.01em; text-transform: lowercase;
+  }
+  .sec-head .kick { font-family: var(--didone); font-style: italic; color: var(--burgundy); font-size: 1.05rem; margin-top: 0.3rem; }
+
+  /* ---------- projects as advertisements ---------- */
+  .ads { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+  @media (max-width: 720px) { .ads { grid-template-columns: 1fr; } }
+  .ad {
+    border: 2px solid var(--ink); position: relative; padding: 1.6rem 1.5rem 1.7rem;
+    box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--ink);
+    text-align: center; background: transparent;
+    opacity: 0; transform: translateY(14px);
+  }
+  .ad.in { opacity: 1; transform: none; transition: opacity 0.5s, transform 0.5s; }
+  .ad.wide { grid-column: span 2; }
+  @media (max-width: 720px) { .ad.wide { grid-column: span 1; } }
+  .ad .top { font-family: var(--didone); color: var(--burgundy); font-size: 1.2rem; }
+  .ad .kind { font-family: var(--fellsc); letter-spacing: 0.1em; font-size: 0.72rem; text-transform: uppercase; display: block; margin: 0.4rem 0; }
+  .ad h3 { font-family: var(--didone); font-weight: 700; font-size: 1.5rem; margin-bottom: 0.6rem; }
+  .ad p { font-size: 0.98rem; text-align: left; }
+  .ad .forged { font-style: italic; font-size: 0.9rem; margin-top: 0.9rem; text-align: center; color: #4a3d2c; }
+  .ad .forged b { font-style: normal; }
+
+  .stamp {
+    display: inline-block; margin-top: 1rem;
+    font-family: var(--fellsc); letter-spacing: 0.04em; font-size: 0.95rem; color: var(--burgundy);
+    border: 2px solid var(--burgundy); border-radius: 50%;
+    width: 92px; height: 92px; line-height: 1.05; padding-top: 28px;
+    transform: rotate(-9deg); box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--burgundy);
+  }
+  .stamp small { display: block; font-size: 0.6rem; letter-spacing: 0.08em; }
+
+  /* ---------- itemized list (from scratch) ---------- */
+  .ledger { max-width: 680px; margin: 0 auto; }
+  .ledger .row { display: flex; align-items: baseline; gap: 0.8rem; padding: 0.7rem 0; border-bottom: 1px dotted var(--ink); }
+  .ledger .row:first-child { border-top: 1px solid var(--ink); }
+  .ledger .row .t { font-family: var(--didone); font-weight: 700; white-space: nowrap; }
+  .ledger .row .dots { flex: 1; border-bottom: 1px dotted var(--ink); transform: translateY(-4px); }
+  .ledger .row .d { font-style: italic; color: #4a3d2c; text-align: right; font-size: 0.92rem; }
+
+  /* ---------- skills (catalogue of wares) ---------- */
+  .wares { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.4rem; }
+  .ware { border: 2px solid var(--ink); padding: 1.3rem 1.4rem; box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--ink); text-align: center; }
+  .ware .cat { font-family: var(--fellsc); letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.78rem; color: var(--burgundy); }
+  .ware .items { font-style: italic; font-size: 1rem; margin-top: 0.5rem; line-height: 1.55; }
+
+  /* ---------- brain food ---------- */
+  .reads { text-align: center; }
+  .reads .pair { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-top: 0.6rem; }
+  .read { border: 2px solid var(--ink); padding: 0.9rem 1.4rem; box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--ink); }
+  .read .name { font-family: var(--didone); font-weight: 700; font-size: 1.25rem; }
+  .read .sub { font-style: italic; font-size: 0.85rem; }
+
+  /* ---------- background ---------- */
+  .notices { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+  @media (max-width: 720px) { .notices { grid-template-columns: 1fr; } }
+  .notice { border: 2px solid var(--ink); padding: 1.5rem; box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--ink); text-align: center; }
+  .notice .when { font-family: var(--fellsc); letter-spacing: 0.08em; font-size: 0.8rem; }
+  .notice h3 { font-family: var(--didone); font-weight: 700; font-size: 1.4rem; margin: 0.3rem 0; }
+  .notice .where { font-style: italic; margin-bottom: 0.5rem; }
+  .notice p { font-size: 0.95rem; }
+
+  /* ---------- contact ---------- */
+  .closer { text-align: center; }
+  .closer h2 { font-family: var(--black); font-weight: 700; font-size: clamp(2.8rem, 9vw, 5.5rem); line-height: 1; }
+  .closer .sub { font-family: var(--didone); font-style: italic; font-size: 1.2rem; margin-top: 0.9rem; }
+
+  footer { text-align: center; font-family: var(--fellsc); letter-spacing: 0.06em; font-size: 0.82rem; margin: 1.5rem auto 2.5rem; }
+
+  :focus-visible { outline: 2px solid var(--burgundy); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .ad { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<main class="frame">
+  <span class="corner-l">❦</span><span class="corner-r">❦</span>
+
+  <!-- ============ MASTHEAD ============ -->
+  <section class="mast">
+    <p class="est">✦ M.S. Artificial Intelligence &middot; Northeastern University ✦</p>
+    <h1>Charul</h1>
+    <p class="est" style="color:var(--burgundy)">purveyor of fine models &amp; full-stack apps &bull; based in Boston, MA</p>
+    <p class="tag">i build <em>computer-vision</em> &amp; <em>LLM</em> systems that lowkey just work — model to UI, no cap.</p>
+    <div class="cta-row">
+      <a class="cta lead" href="#goods"><span class="mani">☞</span> peep the goods</a>
+      <a class="cta" href="https://github.com/Charulyadav" target="_blank" rel="noopener">the github</a>
+      <a class="cta" href="https://drive.google.com/file/d/1b24NjIudqmasO3pwa0pJfoWg6Dplzag3/view?usp=sharing" target="_blank" rel="noopener">the résumé</a>
+    </div>
+  </section>
+
+  <div class="rule"><span>❦</span></div>
+
+  <!-- ============ THE GOODS ============ -->
+  <section id="goods">
+    <div class="sec-head">
+      <h2>the goods</h2>
+      <p class="kick">seven builds that go genuinely hard</p>
+    </div>
+    <div class="ads">
+
+      <article class="ad wide">
+        <div class="top">❦</div>
+        <span class="kind">computer vision &middot; healthcare &middot; flagship</span>
+        <h3>HEp-2 Cell Classification</h3>
+        <p>trained a CNN, a residual CNN, a Vision Transformer &amp; a stacked ensemble to clock autoimmune disease straight from immunofluorescence cell images. the ensemble straight up ate. team build under faculty at Northeastern.</p>
+        <p class="forged"><b>forged with —</b> <em>PyTorch &middot; ViT &middot; CNN &middot; Ensemble &middot; Medical Imaging</em></p>
+        <div class="stamp">95%<small>accuracy</small></div>
+      </article>
+
+      <article class="ad">
+        <div class="top">❦</div>
+        <span class="kind">computer vision &middot; systems</span>
+        <h3>Real-Time Video FX Pipeline</h3>
+        <p>a live C++ &amp; OpenCV pipeline (twelve whole tasks) pulling off neural style transfer + depth-based fog with Depth Anything V2 through ONNX Runtime, plus a stack of custom filters. runs in real time, lowkey.</p>
+        <p class="forged"><b>forged with —</b> <em>C++ &middot; OpenCV &middot; ONNX &middot; Depth Anything</em></p>
+      </article>
+
+      <article class="ad">
+        <div class="top">❦</div>
+        <span class="kind">computer vision &middot; retrieval</span>
+        <h3>Content-Based Image Retrieval</h3>
+        <p>an image search engine mixing classic features (colour + texture histograms) with deep ResNet18 embeddings to surface the most similar pics. it just gets the vibe fr.</p>
+        <p class="forged"><b>forged with —</b> <em>C++ &middot; OpenCV &middot; ResNet18</em></p>
+      </article>
+
+      <article class="ad">
+        <div class="top">❦</div>
+        <span class="kind">nlp &middot; llm</span>
+        <h3>Incident RCA Reasoning System</h3>
+        <p>a two-stage ML + LLM pipeline for production incident diagnosis. a bidirectional LSTM (TF-IDF + temporal features) clocks 87% on 5,000+ historical incidents — confident calls go straight through, sketchy ones route to Mistral 7B which explains the root cause in plain english with fix steps. shipped on Streamlit so on-call engineers actually use it.</p>
+        <p class="forged"><b>forged with —</b> <em>BiLSTM &middot; Mistral 7B &middot; Ollama &middot; TF-IDF &middot; Streamlit</em></p>
+        <div class="stamp">87%<small>accuracy</small></div>
+      </article>
+
+      <article class="ad">
+        <div class="top">❦</div>
+        <span class="kind">multi-agent &middot; full-stack &middot; hackathon</span>
+        <h3>BenefitsBridge</h3>
+        <p>a multi-agent government-benefits finder built at a hackathon. agents orchestrated with LangGraph + Llama 3.2 (Ollama) behind a full-stack Streamlit app, built for accessibility &amp; women's empowerment. it's giving impact.</p>
+        <p class="forged"><b>forged with —</b> <em>LangGraph &middot; Llama 3.2 &middot; Streamlit &middot; full-stack</em></p>
+      </article>
+
+      <article class="ad">
+        <div class="top">❦</div>
+        <span class="kind">computer vision &middot; forensics</span>
+        <h3>Image Forgery Detection</h3>
+        <p>catches photoshop jobs by reading JPEG compression artifacts (Error Level Analysis) + CNN feature extraction. trained on CASIA 2.0 (12,000+ authentic vs tampered pairs). built the whole preprocessing pipeline — ELA, Gaussian denoising, edge detection.</p>
+        <p class="forged"><b>forged with —</b> <em>YOLO &middot; CNNs &middot; Error Level Analysis &middot; CASIA 2.0</em></p>
+      </article>
+
+      <article class="ad">
+        <div class="top">❦</div>
+        <span class="kind">computer vision &middot; real-time</span>
+        <h3>No-Smoking-Zone Detection</h3>
+        <p>spots smoking gestures in a live video feed to enforce no-smoking zones. ResNet34 backbone fine-tuned on a custom dataset; the inference pipeline runs at 30+ FPS on GPU — real-time, no lag.</p>
+        <p class="forged"><b>forged with —</b> <em>ResNet34 &middot; CNNs &middot; real-time inference</em></p>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="rule"><span>☙ ❦ ☙</span></div>
+
+  <!-- ============ THE ARSENAL ============ -->
+  <section id="skills">
+    <div class="sec-head">
+      <h2>the arsenal</h2>
+      <p class="kick">everything in the toolbox rn</p>
+    </div>
+    <div class="wares">
+      <div class="ware">
+        <div class="cat">languages</div>
+        <div class="items">Python &middot; Java &middot; C &middot; C++ &middot; SQL &middot; R &middot; JavaScript &middot; HTML/CSS</div>
+      </div>
+      <div class="ware">
+        <div class="cat">ml &amp; ai</div>
+        <div class="items">PyTorch &middot; TensorFlow &middot; Scikit-learn &middot; Hugging Face Transformers &middot; OpenCV &middot; CNNs &middot; Vision Transformers &middot; prompt &amp; feature engineering</div>
+      </div>
+      <div class="ware">
+        <div class="cat">llms &amp; agents</div>
+        <div class="items">LangGraph &middot; Ollama &middot; Mistral &middot; Llama &middot; LLM APIs</div>
+      </div>
+      <div class="ware">
+        <div class="cat">backend</div>
+        <div class="items">Spring &middot; Spring Boot &middot; REST APIs &middot; WebSockets &middot; MySQL &middot; MongoDB</div>
+      </div>
+      <div class="ware">
+        <div class="cat">data &amp; tooling</div>
+        <div class="items">pandas &middot; NumPy &middot; SciPy &middot; Matplotlib &middot; Seaborn &middot; Jupyter &middot; Streamlit &middot; Git &middot; Linux</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"><span>❦</span></div>
+
+  <!-- ============ FROM SCRATCH ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>from scratch, by hand, fr fr</h2>
+      <p class="kick">no libraries were harmed in the making</p>
+    </div>
+    <div class="ledger">
+      <div class="row"><span class="t">a Perceptron classifier</span><span class="dots"></span><span class="d">coded from zero in Python</span></div>
+      <div class="row"><span class="t">Run-Length Encoding</span><span class="dots"></span><span class="d">compression, hand-rolled in C++</span></div>
+      <div class="row"><span class="t">a Stats toolkit</span><span class="dots"></span><span class="d">median, IQR &amp; Tukey's six-number summary</span></div>
+    </div>
+  </section>
+
+  <div class="rule"><span>❦</span></div>
+
+  <!-- ============ BRAIN FOOD ============ -->
+  <section class="reads">
+    <div class="sec-head">
+      <h2>brain food</h2>
+      <p class="kick">papers i deep-dived &amp; lived to tell the tale</p>
+    </div>
+    <div class="pair">
+      <div class="read"><div class="name">GPT-3</div><div class="sub">language models are few-shot learners</div></div>
+      <div class="read"><div class="name">TimeDRL</div><div class="sub">disentangled rep learning for time series</div></div>
+    </div>
+  </section>
+
+  <div class="rule"><span>☙ ❦ ☙</span></div>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section>
+    <div class="sec-head"><h2>the background</h2><p class="kick">where i've actually shipped stuff</p></div>
+    <div class="notices">
+      <div class="notice">
+        <div class="when">software engineer i &bull; jul 2024 – jul 2025</div>
+        <h3>InsightGeeks Solutions</h3>
+        <div class="where">backend gng &bull; Noida, India</div>
+        <p>shipped 5+ production features end-to-end — owned design, implementation, testing &amp; deploy. built REST APIs + the real-time socket modules powering core data sync (connection drops, reconnection logic, all of it). Java, Spring Boot, MongoDB, WebSockets.</p>
+      </div>
+      <div class="notice">
+        <div class="when">java dev intern &bull; jan – jul 2024</div>
+        <h3>InsightGeeks Solutions</h3>
+        <div class="where">first real shipping job &bull; Noida, India</div>
+        <p>built a Blood Bank Management System end-to-end — H2 schema, Spring REST APIs, admin dashboard, automated donation scheduling &amp; donor-recipient matching. 30% cleaner data, 40% less manual work, 85% test coverage. shaved 12% off API response times with proper indexing (not just vibes).</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"><span>☙ ❦ ☙</span></div>
+
+  <!-- ============ THE SCHOOLING ============ -->
+  <section id="education">
+    <div class="sec-head"><h2>the schooling</h2><p class="kick">degrees, receipts, the whole arc</p></div>
+    <div class="notices">
+      <div class="notice">
+        <div class="when">2025 – 2027</div>
+        <h3>M.S. Artificial Intelligence</h3>
+        <div class="where">Khoury College, Northeastern University &bull; GPA 3.833</div>
+        <p>algorithms, foundations of AI, linear algebra, applied programming &amp; data processing in AI.</p>
+      </div>
+      <div class="notice">
+        <div class="when">2022 – 2024</div>
+        <h3>Master of Computer Application</h3>
+        <div class="where">Dr. A.P.J. Abdul Kalam Technical University &bull; GPA 8.44/10</div>
+        <p>Java, AI, data structures, DBMS, software engineering.</p>
+      </div>
+      <div class="notice">
+        <div class="when">2019 – 2022</div>
+        <h3>B.Sc (Hons) Computer Science</h3>
+        <div class="where">University of Delhi &bull; GPA 8.85/10</div>
+        <p>C++, machine learning, linear algebra, algorithm design.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"><span>☙ ❦ ☙</span></div>
+
+  <!-- ============ LEADERSHIP & RECEIPTS ============ -->
+  <section id="leadership">
+    <div class="sec-head">
+      <h2>leadership &amp; receipts</h2>
+      <p class="kick">the titles, the certs, the wins</p>
+    </div>
+    <div class="notices">
+      <div class="notice">
+        <div class="when">2026</div>
+        <h3>SHEHack'26</h3>
+        <div class="where">3-day hackathon</div>
+        <p>showed up &amp; shipped BenefitsBridge under pressure. building fast is a whole sport.</p>
+      </div>
+      <div class="notice">
+        <div class="when">certification</div>
+        <h3>TechSaksham AI Training</h3>
+        <div class="where">Microsoft + SAP industry program</div>
+        <p>industry-grade AI training, straight from the source.</p>
+      </div>
+      <div class="notice">
+        <div class="when">head girl</div>
+        <h3>Ghaziabad Public School</h3>
+        <div class="where">the leadership origin story</div>
+        <p>led the student council, ran events for 2,000+ students &amp; repped the school at district level.</p>
+      </div>
+      <div class="notice">
+        <div class="when">"A" certificate</div>
+        <h3>National Cadet Corps</h3>
+        <div class="where">NCC</div>
+        <p>paramilitary training — discipline, fitness &amp; leadership under pressure. built different fr.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"><span>☙ ❦ ☙</span></div>
+
+  <!-- ============ OFF THE CLOCK ============ -->
+  <section id="beyond">
+    <div class="sec-head">
+      <h2>off the clock</h2>
+      <p class="kick">the human behind the commits</p>
+    </div>
+    <div class="wares">
+      <div class="ware">
+        <div class="cat">soft skills</div>
+        <div class="items">collaboration &middot; communication &middot; presenting &amp; pitching ideas &middot; bilingual (English &amp; Hindi)</div>
+      </div>
+      <div class="ware">
+        <div class="cat">when i'm not coding</div>
+        <div class="items">painting &middot; sketching &middot; reading</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"><span>❦</span></div>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="closer">
+    <h2>let's build smth</h2>
+    <p class="sub">ml + full-stack roles? wanna nerd out about computer vision? <span class="mani">☞</span> slide into the inbox</p>
+    <div class="cta-row">
+      <a class="cta lead" href="mailto:lnu.char@northeastern.edu">lnu.char@northeastern.edu</a>
+      <a class="cta lead" href="mailto:yadavcharul890@gmail.com">yadavcharul890@gmail.com</a>
+      <a class="cta" href="https://github.com/Charulyadav" target="_blank" rel="noopener">github</a>
+      <a class="cta" href="https://www.linkedin.com/in/charul-152122221/" target="_blank" rel="noopener">linkedin</a>
+      <a class="cta" href="https://drive.google.com/file/d/1b24NjIudqmasO3pwa0pJfoWg6Dplzag3/view?usp=sharing" target="_blank" rel="noopener">résumé</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>© <span id="yr"></span> Charul &bull; set in ink, fuelled by too much tea ☙</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.ad').forEach((c,i) => { c.style.transitionDelay = (i*0.05)+'s'; io.observe(c); });
+</script>
+
+</body>
+</html>
